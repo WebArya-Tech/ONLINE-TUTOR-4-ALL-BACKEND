@@ -143,12 +143,12 @@ public class EmailService {
    * Send blog subscription confirmation email to the user.
    */
   public void sendBlogSubscriptionConfirmation(String to) {
-    String subject = "You're subscribed! — A Star Classes Blog";
+    String subject = "You're subscribed! — OnlineTutor4ALL Blog";
     String body = """
         <html>
         <body style="font-family: Arial, sans-serif; padding: 20px; background-color: #f9f9f9;">
             <div style="background-color: white; padding: 20px; border-radius: 8px; max-width: 600px; margin: auto;">
-                <h2 style="color: #333;">Welcome to the A Star Classes Blog!</h2>
+                <h2 style="color: #333;">Welcome to the OnlineTutor4ALL Blog!</h2>
                 <p style="color: #555;">Hi there,</p>
                 <p style="color: #555;">Thank you for subscribing! You will now receive notifications whenever we publish a new blog post.</p>
                 <p style="color: #999; font-size: 12px; margin-top: 30px;">If you didn't request this subscription, please ignore this email.</p>
@@ -164,13 +164,13 @@ public class EmailService {
    */
   public void sendContactUsAdminNotification(String fullName, String emailAddress, String phoneNumber,
       String subjectName, String messageText) {
-    String subject = "A Star Classes Contact Us Request: from " + fullName;
+    String subject = "OnlineTutor4ALL Contact Us Request: from " + fullName;
     String htmlBody = """
         <!DOCTYPE html>
         <html>
         <head>
           <meta charset="utf-8">
-          <title>A Star Classes - Contact Us Request</title>
+          <title>OnlineTutor4ALL - Contact Us Request</title>
           <style>
             body {
               font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -293,7 +293,7 @@ public class EmailService {
           <div class="wrapper">
             <div class="container">
               <div class="header">
-                <h1>A Star Classes</h1>
+                <h1>OnlineTutor4ALL</h1>
               </div>
               <div class="content">
                 <span class="badge">Contact Us</span>
@@ -326,7 +326,7 @@ public class EmailService {
               </div>
               <div class="footer">
                 <p>This is an automated administrative notification. Please do not reply directly to this email.</p>
-                <p style="margin-top: 6px;">&copy; 2026 A Star Classes. All rights reserved.</p>
+                <p style="margin-top: 6px;">&copy; 2026 OnlineTutor4ALL. All rights reserved.</p>
               </div>
             </div>
           </div>
@@ -355,13 +355,13 @@ public class EmailService {
       String gradeName,
       String preferredDate,
       String preferredTime) {
-    String subject = "A Star Classes Scheduling Demo Request: from " + studentName;
+    String subject = "OnlineTutor4ALL Scheduling Demo Request: from " + studentName;
     String htmlBody = """
         <!DOCTYPE html>
         <html>
         <head>
           <meta charset="utf-8">
-          <title>A Star Classes - Schedule Demo Request</title>
+          <title>OnlineTutor4ALL - Schedule Demo Request</title>
           <style>
             body {
               font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -462,7 +462,7 @@ public class EmailService {
           <div class="wrapper">
             <div class="container">
               <div class="header">
-                <h1>A Star Classes</h1>
+                <h1>OnlineTutor4ALL</h1>
               </div>
               <div class="content">
                 <span class="badge">Demo Class Request</span>
@@ -506,7 +506,7 @@ public class EmailService {
               </div>
               <div class="footer">
                 <p>This is an automated administrative notification. Please do not reply directly to this email.</p>
-                <p style="margin-top: 6px;">&copy; 2026 A Star Classes. All rights reserved.</p>
+                <p style="margin-top: 6px;">&copy; 2026 OnlineTutor4ALL. All rights reserved.</p>
               </div>
             </div>
           </div>
@@ -529,13 +529,13 @@ public class EmailService {
    * Send Contact Us submission confirmation to the user.
    */
   public void sendContactUsUserConfirmation(String to, String fullName, String subjectName, String messageText) {
-    String subject = "We've received your message — A Star Classes";
+    String subject = "We've received your message — OnlineTutor4ALL";
     String htmlBody = """
         <!DOCTYPE html>
         <html>
         <head>
           <meta charset="utf-8">
-          <title>A Star Classes – Message Received</title>
+          <title>OnlineTutor4ALL – Message Received</title>
           <style>
             body {
               font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -618,7 +618,7 @@ public class EmailService {
           <div class="wrapper">
             <div class="container">
               <div class="header">
-                <h1>A Star Classes</h1>
+                <h1>OnlineTutor4ALL</h1>
                 <p>Excellence in Education</p>
               </div>
               <div class="content">
@@ -651,13 +651,13 @@ public class EmailService {
 
                 <div class="signature">
                   <p>Warm regards,</p>
-                  <p><strong>The A Star Classes Team</strong><br>
+                  <p><strong>The OnlineTutor4ALL Team</strong><br>
                   Supporting Your Academic Journey</p>
                 </div>
               </div>
               <div class="footer">
                 <p>This is an automated confirmation. Please do not reply to this email.</p>
-                <p style="margin-top: 6px;">&copy; 2026 A Star Classes. All rights reserved.</p>
+                <p style="margin-top: 6px;">&copy; 2026 OnlineTutor4ALL. All rights reserved.</p>
               </div>
             </div>
           </div>
@@ -678,13 +678,13 @@ public class EmailService {
       String gradeName,
       String preferredDate,
       String preferredTime) {
-    String subject = "Your demo class is booked! — A Star Classes";
+    String subject = "Your demo class is booked! — OnlineTutor4ALL";
     String htmlBody = """
         <!DOCTYPE html>
         <html>
         <head>
           <meta charset="utf-8">
-          <title>A Star Classes – Demo Booking Confirmed</title>
+          <title>OnlineTutor4ALL – Demo Booking Confirmed</title>
           <style>
             body {
               font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -770,7 +770,7 @@ public class EmailService {
           <div class="wrapper">
             <div class="container">
               <div class="header">
-                <h1>A Star Classes</h1>
+                <h1>OnlineTutor4ALL</h1>
                 <p>Excellence in Education</p>
               </div>
               <div class="content">
@@ -815,14 +815,14 @@ public class EmailService {
                 </div>
 
                 <div class="signature">
-                  <p>We look forward to welcoming you to A Star Classes!</p>
-                  <p><strong>The A Star Classes Team</strong><br>
+                  <p>We look forward to welcoming you to OnlineTutor4ALL!</p>
+                  <p><strong>The OnlineTutor4ALL Team</strong><br>
                   Supporting Your Academic Journey</p>
                 </div>
               </div>
               <div class="footer">
                 <p>This is an automated confirmation. Please do not reply to this email.</p>
-                <p style="margin-top: 6px;">&copy; 2026 A Star Classes. All rights reserved.</p>
+                <p style="margin-top: 6px;">&copy; 2026 OnlineTutor4ALL. All rights reserved.</p>
               </div>
             </div>
           </div>
