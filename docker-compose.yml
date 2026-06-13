@@ -2,11 +2,11 @@ version: '3.8'
 
 services:
   # ==============================
-  # Testimonial & QnA Application Service
+  # Online-Tutor Application Service
   # ==============================
-  testimonial-qna-api:
+  online-tutor-api:
     build: .
-    container_name: astar-testimonial-ask-api-container
+    container_name: online-tutor-api-container
     ports:
       - "9009:8080" # Host Port : Container Port
     restart: always
