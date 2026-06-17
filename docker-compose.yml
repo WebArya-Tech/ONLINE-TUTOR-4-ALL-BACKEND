@@ -1,4 +1,5 @@
 version: '3.8'
+
 services:
   # ==============================
   # OnlineTutor4All Application Service
@@ -9,11 +10,15 @@ services:
     ports:
       - "9997:8080" # Host Port : Container Port
     restart: always
+    networks:
+      - onlinetutor4all_net
     environment:
       # Server Configuration
       - SERVER_PORT=8080
+
       # MongoDB Configuration (From .env)
       - MONGODB_URI=${MONGODB_URI}
+
       # Mail Configuration (From .env)
       - SPRING_MAIL_HOST=smtp.gmail.com
       - SPRING_MAIL_PORT=587
@@ -21,33 +26,35 @@ services:
       - SPRING_MAIL_PASSWORD=${MAIL_PASSWORD}
       - SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH=true
       - SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE=true
+
       # Admin Credentials (From .env or defaults)
       - ADMIN_USERNAME=${ADMIN_USERNAME}
       - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+
       # Frontend URL
       - FRONTEND_URL=${FRONTEND_URL}
+
       # JWT Configuration
       - JWT_SECRET=${JWT_SECRET}
       - JWT_EXPIRY_HOURS=${JWT_EXPIRY_HOURS}
+
       # Cloudinary Configuration
       - CLOUDINARY_URL=${CLOUDINARY_URL}
-    networks:
-      - online-tutor-network
+
+    # Load environment variables from .env file
     env_file:
       - .env
+
+    # Healthcheck to ensure the app is running
     healthcheck:
       test: [ "CMD-SHELL", "curl -f http://localhost:8080/actuator/health || exit 1" ]
       interval: 30s
       timeout: 10s
       retries: 5
 
-# ==============================
-# Custom Network
-# ==============================
 networks:
-  online-tutor-network:
+  onlinetutor4all_net:
     driver: bridge
     ipam:
-      driver: default
       config:
-        - subnet: 10.10.1.0/24
+        - subnet: 10.6.0.0/24
