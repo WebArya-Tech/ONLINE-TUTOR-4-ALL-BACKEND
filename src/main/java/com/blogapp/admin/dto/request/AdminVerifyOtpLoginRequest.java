@@ -11,7 +11,7 @@ public class AdminVerifyOtpLoginRequest {
 
     @NotBlank(message = "Email is required")
     @Email(message = "Invalid email format")
-    @Schema(example = "admin@astarclasses.com")
+    @Schema(example = "admin@onlinetutor4all.com")
     private String email;
 
     @NotBlank(message = "OTP code is required")

@@ -11,7 +11,7 @@ public class AdminLoginOtpRequest {
 
     @NotBlank(message = "Email is required")
     @Email(message = "Invalid email format")
-    @Schema(example = "admin@astarclasses.com")
+    @Schema(example = "admin@onlinetutor4all.com")
     private String email;
 
     @Schema(description = "Set to true if this is explicitly a resend request", example = "false")

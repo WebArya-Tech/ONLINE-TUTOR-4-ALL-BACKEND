@@ -130,12 +130,12 @@ public class DataInitializer implements CommandLineRunner {
         // ── Admin ──
         if (adminRepository.count() == 0) {
             Admin admin = Admin.builder()
-                    .email("admin@astarclasses.com")
+                    .email("admin@onlinetutor4all.com")
                     .password(passwordEncoder.encode("admin123"))
                     .createdAt(LocalDateTime.now())
                     .build();
             adminRepository.save(admin);
-            log.info("Created primary admin: admin@astarclasses.com / admin123");
+            log.info("Created primary admin: admin@onlinetutor4all.com / admin123");
         } else {
             log.info("Admin collection already has data. Skipping.");
         }

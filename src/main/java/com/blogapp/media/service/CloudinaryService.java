@@ -30,7 +30,7 @@ public class CloudinaryService {
         try {
             long timestamp = System.currentTimeMillis() / 1000L;
             Map<String, Object> params = Map.of(
-                    "folder", "astar-testimonial-ask",
+                    "folder", "onlinetutor4all",
                     "timestamp", timestamp
             );
             
@@ -41,7 +41,7 @@ public class CloudinaryService {
                     "timestamp", timestamp,
                     "cloud_name", cloudinary.config.cloudName,
                     "api_key", cloudinary.config.apiKey,
-                    "folder", "astar-testimonial-ask"
+                    "folder", "onlinetutor4all"
             );
         } catch (Exception e) {
             log.error("Failed to generate Cloudinary signature", e);
@@ -57,7 +57,7 @@ public class CloudinaryService {
      */
     public void deleteMediaByUrl(String secureUrl) {
         try {
-            // URL parse example: https://res.cloudinary.com/demo/image/upload/v123456/astar-testimonial-ask/filename.jpg
+            // URL parse example: https://res.cloudinary.com/demo/image/upload/v123456/onlinetutor4all/filename.jpg
             java.net.URL url = java.net.URI.create(secureUrl).toURL();
             String urlPath = url.getPath(); 
             String[] parts = urlPath.split("/upload/");

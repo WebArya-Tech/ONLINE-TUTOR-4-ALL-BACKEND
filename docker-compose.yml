@@ -2,13 +2,13 @@ version: '3.8'
 
 services:
   # ==============================
-  # Online-Tutor Application Service
+  # OnlineTutor4All Application Service
   # ==============================
-  online-tutor-api:
+  onlinetutor4all-api:
     build: .
-    container_name: online-tutor-api-container
+    container_name: onlinetutor4all-api-container
     ports:
-      - "9009:8080" # Host Port : Container Port
+      - "9997:8080" # Host Port : Container Port
     restart: always
     environment:
       # Server Configuration
