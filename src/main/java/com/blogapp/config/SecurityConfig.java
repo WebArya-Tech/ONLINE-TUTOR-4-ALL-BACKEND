@@ -66,6 +66,9 @@ public class SecurityConfig {
 
                         // Public - Blogs
                         .requestMatchers(HttpMethod.GET, "/api/blogs/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/blogs/submissions/start").permitAll()               
+                        .requestMatchers(HttpMethod.POST, "/api/blogs/submissions/verify").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/blogs/submissions/finish").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/blogs/*/comments").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/blogs/*/reactions/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/blogs/subscriptions/**").permitAll()
