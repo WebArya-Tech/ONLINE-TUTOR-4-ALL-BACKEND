@@ -46,25 +46,13 @@ public class SecurityConfig {
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-
-                        // Public — Teachers
                         .requestMatchers(HttpMethod.GET, "/api/teachers/**").permitAll()
-
-                        // Public — Testimonials (submit + view)
                         .requestMatchers("/api/testimonials/**").permitAll()
-
-                        // Auth
                         .requestMatchers("/api/auth/**").permitAll()
-
-                        // Admin Auth (MUST be before /api/admin/**)
                         .requestMatchers("/api/admin/auth/**", "/admin/auth/**").permitAll()
-
-                        // Public - Ask System
                         .requestMatchers(HttpMethod.GET, "/api/categories/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/questions/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/answers/question/**").permitAll()
-
-                        // Public - Blogs
                         .requestMatchers(HttpMethod.GET, "/api/blogs/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/blogs/submissions/start").permitAll()               
                         .requestMatchers(HttpMethod.POST, "/api/blogs/submissions/verify").permitAll()
@@ -73,65 +61,38 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/blogs/*/reactions/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/blogs/subscriptions/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/blogs").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/blogs/submissions/start").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/blogs/submissions/verify").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/blogs/submissions/finish").permitAll()
                         .requestMatchers(HttpMethod.GET, "/blogs/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/blogs/subscriptions/**").permitAll()
-
-                        // Student Reviews — public listing, auth-required submission
                         .requestMatchers(HttpMethod.GET, "/api/reviews").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/reviews/{id}").permitAll()
-                        // POST /api/reviews and GET /api/reviews/me require authentication
                         .requestMatchers(HttpMethod.POST, "/api/reviews").authenticated()
                         .requestMatchers(HttpMethod.GET, "/api/reviews/me").authenticated()
-
-                        // Running Classes — public browsing, auth-required enrollment
                         .requestMatchers(HttpMethod.GET, "/api/classes").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/classes/{id}").permitAll()
-                        // POST /api/classes/{id}/enroll, GET /api/classes/my-enrollments,
-                        // POST /api/classes/enrollments/{id}/cancel → require authentication
-
-                        // Public - New Endpoints (Demo, Contact)
                         .requestMatchers("/api/public/**").permitAll()
-
-                        // Swagger & Actuator
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
                         .requestMatchers("/actuator/**").permitAll()
-
-                        // Authenticated user endpoints
                         .requestMatchers("/api/account/**").authenticated()
-
-                        // Admin endpoints — cover BOTH /api/admin/** and /admin/api/** prefixes
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .requestMatchers("/admin/api/**").hasRole("ADMIN")
-
                         .anyRequest().authenticated())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-
         return http.build();
     }
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-
-        // Allow all origins
         config.setAllowedOriginPatterns(List.of("*"));
-
-        // Allow all HTTP methods
-        config.setAllowedMethods(List.of(
-                "GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
-
-        // Allow all headers
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
-
-        // Allow credentials (JWT / cookies / Authorization headers)
         config.setAllowCredentials(true);
-
-        // Cache CORS response for 1 hour
         config.setMaxAge(3600L);
-
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
-
         return source;
     }
 
@@ -142,7 +103,6 @@ public class SecurityConfig {
                 .password(passwordEncoder().encode(adminPassword))
                 .roles("ADMIN")
                 .build();
-
         return new InMemoryUserDetailsManager(admin);
     }
 
