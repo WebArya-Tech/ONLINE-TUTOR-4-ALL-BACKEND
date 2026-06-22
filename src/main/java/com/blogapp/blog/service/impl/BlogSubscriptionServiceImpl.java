@@ -35,12 +35,12 @@ public class BlogSubscriptionServiceImpl implements BlogSubscriptionService {
     @Override
     public boolean requestOtp(String email, boolean isResend) {
         log.info("Requesting blog subscription OTP for email: {}", email);
-        
+
         Optional<BlogSubscription> existingOpt = subscriptionRepository.findByEmail(email);
         if (existingOpt.isPresent() && existingOpt.get().isActive()) {
             throw new BadRequestException("You are already subscribed to blog updates.");
         }
-        
+
         return otpService.sendOtp(email, OtpPurpose.BLOG_SUBSCRIBE, isResend);
     }
 
@@ -68,7 +68,7 @@ public class BlogSubscriptionServiceImpl implements BlogSubscriptionService {
             subscriptionRepository.save(subscription);
             log.info("Created new blog subscription for email: {}", email);
         }
-        
+
         // Send confirmation email
         try {
             emailService.sendBlogSubscriptionConfirmation(email);
@@ -108,9 +108,10 @@ public class BlogSubscriptionServiceImpl implements BlogSubscriptionService {
                 }
 
                 log.info("Dispatching new blog notifications to {} active subscribers.", activeSubscribers.size());
-                
+
                 // Construct the link depending on how the frontend handles blog detail slugs
-                String cleanFrontendUrl = frontendUrl.endsWith("/") ? frontendUrl.substring(0, frontendUrl.length() - 1) : frontendUrl;
+                String cleanFrontendUrl = frontendUrl.endsWith("/") ? frontendUrl.substring(0, frontendUrl.length() - 1)
+                        : frontendUrl;
                 String blogLink = cleanFrontendUrl + "/blogs/" + post.getSlug();
 
                 for (BlogSubscription subscriber : activeSubscribers) {
@@ -125,5 +126,44 @@ public class BlogSubscriptionServiceImpl implements BlogSubscriptionService {
                 log.error("Critical error during async blog notification dispatch: {}", e.getMessage(), e);
             }
         });
+    }
+
+    @Override
+    public com.blogapp.common.dto.PageResponse<com.blogapp.blog.dto.response.BlogSubscriberResponse> getAllSubscribers(
+            int page, int size) {
+        org.springframework.data.domain.Pageable pageable = org.springframework.data.domain.PageRequest.of(page, size,
+                org.springframework.data.domain.Sort.by(org.springframework.data.domain.Sort.Direction.DESC,
+                        "createdAt"));
+        org.springframework.data.domain.Page<BlogSubscription> subscriberPage = subscriptionRepository
+                .findAll(pageable);
+
+        java.util.List<com.blogapp.blog.dto.response.BlogSubscriberResponse> content = subscriberPage.getContent()
+                .stream()
+                .map(sub -> com.blogapp.blog.dto.response.BlogSubscriberResponse.builder()
+                        .id(sub.getId())
+                        .email(sub.getEmail())
+                        .isActive(sub.isActive())
+                        .createdAt(sub.getCreatedAt())
+                        .updatedAt(sub.getUpdatedAt())
+                        .build())
+                .collect(java.util.stream.Collectors.toList());
+
+        return com.blogapp.common.dto.PageResponse.<com.blogapp.blog.dto.response.BlogSubscriberResponse>builder()
+                .content(content)
+                .page(subscriberPage.getNumber())
+                .size(subscriberPage.getSize())
+                .totalElements(subscriberPage.getTotalElements())
+                .totalPages(subscriberPage.getTotalPages())
+                .first(subscriberPage.isFirst())
+                .last(subscriberPage.isLast())
+                .build();
+    }
+
+    @Override
+    public void deleteSubscriber(String id) {
+        BlogSubscription subscription = subscriptionRepository.findById(id)
+                .orElseThrow(() -> new com.blogapp.common.exception.ResourceNotFoundException("Subscriber", "id", id));
+        subscriptionRepository.delete(subscription);
+        log.info("Deleted blog subscriber with id: {}", id);
     }
 }
